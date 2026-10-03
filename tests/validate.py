@@ -15,7 +15,7 @@ from crosscheck.gate import evaluate, instant, validate, validate_receipt
 def main():
     marketplace = json.loads((ROOT / ".agents/plugins/marketplace.json").read_text())
     assert marketplace["name"] == "independent-qa-agent", "preserve installed marketplace identity"
-    assert marketplace["interface"]["displayName"] == "Crosscheck"
+    assert marketplace["interface"]["displayName"] == "Make No Mistakes"
     assert {p["name"] for p in marketplace["plugins"]} == {"qa-agent", "crosscheck"}
     for entry in marketplace["plugins"]:
         plugin = ROOT / entry["source"]["path"]

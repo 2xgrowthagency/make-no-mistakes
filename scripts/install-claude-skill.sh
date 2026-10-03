@@ -2,7 +2,7 @@
 set -eu
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
-  echo "Usage: $0 /path/to/target-project [independent-verification|crosscheck]" >&2
+  echo "Usage: $0 /path/to/target-project [independent-verification|crosscheck|make-no-mistakes]" >&2
   exit 2
 fi
 
@@ -16,6 +16,19 @@ case "$skill_name" in
     for file in SKILL.md references/task-profiles.md references/evidence-bundle.md references/result-publication.md references/runtime-integration.md; do
       if [ ! -s "$source_dir/$file" ]; then
         echo "BLOCKED: managed Crosscheck skill source is incomplete; use a complete reviewed candidate package." >&2
+        exit 2
+      fi
+    done
+    ;;
+  make-no-mistakes)
+    source_dir="$repo_dir/plugins/crosscheck/skills/make-no-mistakes"
+    if [ ! -s "$source_dir/SKILL.md" ]; then
+      echo "BLOCKED: managed Make No Mistakes skill source is incomplete." >&2
+      exit 2
+    fi
+    for file in SKILL.md references/task-profiles.md references/evidence-bundle.md references/result-publication.md references/runtime-integration.md; do
+      if [ ! -s "$1/.claude/skills/crosscheck/$file" ]; then
+        echo "BLOCKED: install the complete Crosscheck skill first." >&2
         exit 2
       fi
     done

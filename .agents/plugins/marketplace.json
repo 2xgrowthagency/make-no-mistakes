@@ -1,7 +1,7 @@
 {
   "name": "independent-qa-agent",
   "interface": {
-    "displayName": "Crosscheck"
+    "displayName": "Make No Mistakes"
   },
   "plugins": [
     {

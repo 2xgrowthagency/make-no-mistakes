@@ -1,24 +1,24 @@
 {
   "name": "crosscheck",
   "version": "0.3.0-rc.1",
-  "description": "Independent verification instructions and exact-target evidence runtime.",
+  "description": "Risk-proportionate Make No Mistakes workflow with independent Crosscheck verification.",
   "author": {
     "name": "2x Growth Agency",
     "url": "https://github.com/2xgrowthagency"
   },
   "interface": {
-    "displayName": "Crosscheck",
-    "shortDescription": "Validate exact targets and durable evidence.",
-    "longDescription": "Verify completed deliverables, decisions and QA processes with fresh evidence, read-only checks and PASS, FAIL or BLOCKED results.",
+    "displayName": "Make No Mistakes",
+    "shortDescription": "Select proportionate checks and independent QA.",
+    "longDescription": "Use the Make No Mistakes umbrella for conditional builder validation and fresh independent Crosscheck evidence. Existing verifier commands remain compatible.",
     "developerName": "2x Growth Agency",
     "category": "Productivity",
     "capabilities": [],
     "defaultPrompt": [
-      "Crosscheck"
+      "Make no mistakes"
     ]
   },
-  "homepage": "https://github.com/2xgrowthagency/crosscheck",
-  "repository": "https://github.com/2xgrowthagency/crosscheck",
+  "homepage": "https://github.com/2xgrowthagency/make-no-mistakes",
+  "repository": "https://github.com/2xgrowthagency/make-no-mistakes",
   "license": "MIT",
   "keywords": [
     "qa",

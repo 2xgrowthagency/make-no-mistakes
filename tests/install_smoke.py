@@ -66,6 +66,8 @@ def main():
     with tempfile.TemporaryDirectory(dir=ROOT / ".work" if (ROOT / ".work").exists() else None) as tmp:
         root = Path(tmp)
         project = root / "project with spaces"; project.mkdir()
+        run([ROOT / "scripts/install-claude-skill.sh", project, "make-no-mistakes"], expected=2)
+        assert list(project.iterdir()) == [], "missing verifier must refuse without writes"
         run([ROOT / "scripts/install-claude-skill.sh", project])
         source = ROOT / "plugins/qa-agent/skills/independent-verification"
         installed = project / ".claude/skills/independent-verification"
@@ -82,6 +84,13 @@ def main():
         run([ROOT / "scripts/install-claude-skill.sh", project, "crosscheck"], expected=1)
         assert canonical_before == digest_tree(canonical)
         assert before == digest_tree(installed)
+        run([ROOT / "scripts/install-claude-skill.sh", project, "make-no-mistakes"])
+        wrapper = project / ".claude/skills/make-no-mistakes"
+        assert digest_tree(ROOT / "plugins/crosscheck/skills/make-no-mistakes") == digest_tree(wrapper)
+        (wrapper / "user-note.md").write_text("preserve wrapper notes")
+        wrapper_before = digest_tree(wrapper)
+        run([ROOT / "scripts/install-claude-skill.sh", project, "make-no-mistakes"], expected=1)
+        assert wrapper_before == digest_tree(wrapper)
         for alias in ALIASES:
             env = root / alias
             run([ROOT / "scripts/install-runtime.sh", env, alias])

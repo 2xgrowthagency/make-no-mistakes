@@ -1,4 +1,20 @@
-# Crosscheck
+# Make No Mistakes
+
+The 2x risk-proportionate QA workflow. Ask **“do XYZ; make no mistakes”** or
+invoke `$make-no-mistakes`: focused artifact checks for small reversible work;
+Kun Chen's **no-mistakes** pipeline when risk, complexity, repository eligibility
+and authority warrant it; then fresh independent **Crosscheck** QA for substantial
+or risky work. UI changes require live E2E journeys and current desktop/mobile
+screenshots, with ordered interaction and persisted-state evidence where needed.
+
+The [umbrella skill](plugins/crosscheck/skills/make-no-mistakes/SKILL.md) selects
+the checks. It does not replace Kun Chen's upstream skill, grant merge/deploy
+authority, install tools automatically or promise zero defects. Install the
+upstream `no-mistakes` skill separately when using that pipeline. Existing
+project allowlists and task delivery-gate selection still apply; installation
+alone is not universal automatic enforcement.
+
+## Crosscheck verification engine
 
 Crosscheck is the 2x-maintained, open-source verification gate for completed work.
 Its deterministic runtime binds evidence to an exact target and returns `PASS`,
@@ -6,9 +22,9 @@ Its deterministic runtime binds evidence to an exact target and returns `PASS`,
 result requires fresh verification. PASS grants no merge, closure, deployment,
 or account-change authority.
 
-**Release candidate: 0.3.0-rc.1.** The runtime, schemas, approved `$crosscheck`
-skill and four references are packaged for review. Fresh independent QA and
-owner release verification remain required. The existing `qa-agent` plugin and
+**Runtime baseline: 0.3.0-rc.1**, released September 7, 2026. The runtime,
+schemas, approved `$crosscheck` skill and four references remain unchanged by
+the umbrella rename. The existing `qa-agent` plugin and
 `$independent-verification` skill remain unchanged and usable; they do not
 automatically enforce the new runtime.
 
@@ -23,7 +39,9 @@ Requires Python 3.11 or later. From this repository checkout:
 
 The installer creates a new isolated environment and refuses to overwrite an
 existing one. This repository is the canonical source:
-`2xgrowthagency/crosscheck`, renamed from `2xgrowthagency/independent-qa-agent`.
+`2xgrowthagency/make-no-mistakes`, renamed from `2xgrowthagency/crosscheck`
+(originally `2xgrowthagency/independent-qa-agent`). Repository history is retained;
+the engine, Python package, receipt schemas and existing commands keep their names.
 The Python distribution is `crosscheck-verifier`; no package registry release
 has been published. Install the reviewed checkout, not an assumed registry package.
 
@@ -36,11 +54,12 @@ codex plugin marketplace add /path/to/reviewed-crosscheck-checkout
 codex plugin add crosscheck@independent-qa-agent
 ```
 
-Start a fresh task and invoke `$crosscheck`. This installs the instructions;
+Start a fresh task and invoke `$make-no-mistakes` for the umbrella workflow or
+`$crosscheck` for independent verification only. Both skills ship in the same
+compatible `crosscheck` plugin. This installs the instructions;
 install the runtime separately using the command above. The marketplace retains
 its machine name `independent-qa-agent` to preserve installed references; its
-visible name is Crosscheck. The main-branch marketplace will gain the canonical
-plugin only after the owner releases this candidate.
+visible name is Make No Mistakes. Existing plugin identifiers remain stable.
 
 The legacy installation remains `qa-agent@independent-qa-agent`, invoking
 `$independent-verification`. Existing users can keep it alongside Crosscheck.
@@ -49,12 +68,16 @@ The legacy installation remains `qa-agent@independent-qa-agent`, invoking
 
 ```bash
 ./scripts/install-claude-skill.sh /path/to/target-project crosscheck
+./scripts/install-claude-skill.sh /path/to/target-project make-no-mistakes
 ```
 
-This copies the approved skill and four references into
+The first command copies the approved verifier skill and four references into
 `.claude/skills/crosscheck/`. Start a fresh Claude Code session in that project
 and invoke `/crosscheck`. Runtime installation is separate. The installer
 refuses to overwrite existing instructions or copy an incomplete managed package.
+The second installs the umbrella skill; it requires the installed Crosscheck
+package first. Invoke `/make-no-mistakes` for the umbrella or `/crosscheck` for
+verification only. Authenticated Claude execution is not claimed by copy tests.
 
 Omitting `crosscheck` retains the legacy default: the unchanged
 `.claude/skills/independent-verification/` package, invoked with

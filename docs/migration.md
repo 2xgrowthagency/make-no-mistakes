@@ -1,5 +1,21 @@
 # Migration and compatibility
 
+## Make No Mistakes umbrella
+
+The project is now `2xgrowthagency/make-no-mistakes`, retaining the same repository
+identity and history. `$make-no-mistakes` is the risk-proportionate 2x entrypoint;
+`$crosscheck` remains the independent verifier. Both ship in the existing
+`crosscheck@independent-qa-agent` plugin. The marketplace's visible name changes;
+its identifier, existing plugin names, runtime commands and receipt schemas do not.
+
+Kun Chen's upstream `no-mistakes` skill/CLI is a separate dependency, invoked
+conditionally for eligible and authorized substantial or risky code work.
+The umbrella never edits that upstream skill or claims automatic cross-project
+enforcement. Claude users install Crosscheck first, then the umbrella using the
+explicit `make-no-mistakes` installer name. Existing install defaults are unchanged.
+
+## Historical Crosscheck migration
+
 Crosscheck is maintained by 2x Growth Agency in `2xgrowthagency/crosscheck`.
 Version 0.3.0-rc.1 is a review candidate, not a release. The same organizational
 repository was renamed from `independent-qa-agent`; its installed marketplace
